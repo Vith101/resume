@@ -211,9 +211,9 @@ export const otherExperience: OtherEntry[] = [
     ],
   },
   {
-    title: "Leidos ML/AI Working Group — Chair",
+    title: "Leidos ML/AI Working Group — Founding Member",
     description:
-      "Selected to chair the working group established following the success of the 2024 Innovation Challenge, leading productive discussions, facilitating the sharing of ML/AI solutions across teams, and ensuring active participant input.",
+      "Helped establish the working group following the success of the 2024 Innovation Challenge, contributing to discussions and facilitating the sharing of ML/AI solutions across teams.",
   },
   {
     title: "Mentor — Leidos Mentorship Program",
