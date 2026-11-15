@@ -1,69 +1,163 @@
-import Image from "next/image";
+import Nav from "@/components/Nav";
+import Section from "@/components/Section";
+import ExperienceCard from "@/components/ExperienceCard";
+import {
+  profile,
+  skillGroups,
+  certifications,
+  education,
+  experience,
+  otherExperience,
+} from "@/data/resume";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <div id="top" className="bg-white dark:bg-black">
+      <Nav />
+
+      {/* Hero */}
+      <section className="mx-auto max-w-5xl px-6 pb-16 pt-16 sm:pb-24 sm:pt-24">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+          {profile.title}
+        </p>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
+          {profile.name}
+        </h1>
+        <p
+          id="summary"
+          className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 scroll-mt-24"
+        >
+          {profile.summary}
+        </p>
+
+        <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500 dark:text-zinc-400">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`mailto:${profile.email}`}
+            className="flex items-center gap-2 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+            {profile.email}
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          <span className="flex items-center gap-2">{profile.phone}</span>
+          <span className="flex items-center gap-2">{profile.location}</span>
         </div>
-      </main>
+      </section>
+
+      {/* Experience */}
+      <Section id="experience" eyebrow="Career" title="Work Experience">
+        <div>
+          {experience.map((entry) => (
+            <ExperienceCard key={`${entry.company}-${entry.role}`} entry={entry} />
+          ))}
+        </div>
+      </Section>
+
+      {/* Skills */}
+      <Section id="skills" eyebrow="Toolbox" title="Technical Experience">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group) => (
+            <div
+              key={group.title}
+              className="rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800"
+            >
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                {group.title}
+              </h3>
+              <ul className="mt-3 flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Education & Certifications */}
+      <Section id="education" eyebrow="Background" title="Education & Certifications">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+          <div>
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+              Education
+            </h3>
+            <div className="mt-4 space-y-6">
+              {education.map((item) => (
+                <div key={item.degree}>
+                  <p className="font-medium text-zinc-800 dark:text-zinc-200">
+                    {item.degree}
+                  </p>
+                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+                    {item.school} · {item.location}
+                  </p>
+                  <p className="text-sm text-indigo-600 dark:text-indigo-400">
+                    {item.period}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+              Certifications
+            </h3>
+            <ul className="mt-4 space-y-4">
+              {certifications.map((cert) => (
+                <li key={cert.name}>
+                  <p className="font-medium text-zinc-800 dark:text-zinc-200">
+                    {cert.name}
+                  </p>
+                  {cert.date && (
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                      {cert.date}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* Other Experience */}
+      <Section id="other" eyebrow="More" title="Beyond the Role">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {otherExperience.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800"
+            >
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                {item.description}
+              </p>
+              {item.bullets && (
+                <ul className="mt-3 space-y-1.5">
+                  {item.bullets.map((bullet, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400"
+                    >
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-zinc-400 dark:bg-zinc-600" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <footer className="border-t border-zinc-200 py-10 text-center text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+        {profile.name} · {profile.location}
+      </footer>
     </div>
   );
 }
